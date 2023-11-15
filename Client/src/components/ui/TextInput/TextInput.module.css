@@ -1,0 +1,21 @@
+.input-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 0.6rem;
+}
+
+.input-group label {
+    font-size: 1rem;
+    margin-top: 0.5rem;
+}
+
+.input-group input[type='text'] {
+    background-color: var(--secondary-color);
+    border: none;
+    height: 45px;
+    font-family: Urbanist;
+    border-radius: 14px;
+    padding: 0 1rem;
+    outline: none;
+}

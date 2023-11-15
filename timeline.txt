@@ -1,0 +1,2 @@
+1) Frontend için react kurulumu yapıldı. React router iskeleti hazırlandı ve giriş,kayıt ol sayfaları tasarlandı.
+Backend için .net core web api ile projeyi başlattım.
