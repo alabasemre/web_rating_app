@@ -9,6 +9,6 @@ namespace API.Interfaces
 
         Task<bool> SaveAllAsync();
 
-        Task<UserDto>GetUserByUsernameAsync(string username);
+        Task<AppUser>GetUserByUsernameAsync(string username);
     }
 }

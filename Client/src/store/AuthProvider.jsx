@@ -15,6 +15,12 @@ const authReducer = (state, action) => {
     if (action.type === 'LOGOUT') {
         return { isLoggedIn: false, user: null };
     }
+    if (action.type === 'CHANGE_PHOTO') {
+        return {
+            isLoggedIn: true,
+            user: { ...state.user, photo: action.photo },
+        };
+    }
 };
 
 const AuthProvider = ({ children }) => {
@@ -43,6 +49,10 @@ const AuthProvider = ({ children }) => {
         }
     };
 
+    const changePhotoHandler = (photo) => {
+        authActions({ type: 'CHANGE_PHOTO', photo: photo });
+    };
+
     const logoutHandler = () => {
         localStorage.removeItem('user');
         authActions({ type: 'LOGOUT' });
@@ -54,6 +64,7 @@ const AuthProvider = ({ children }) => {
         login: loginHandler,
         logout: logoutHandler,
         register: registerHandler,
+        changePhoto: changePhotoHandler,
     };
 
     return (

@@ -19,9 +19,9 @@ namespace API.Data
             _mapper = mapper;
         }
 
-        public async Task<UserDto> GetUserByUsernameAsync(string username)
+        public async Task<AppUser> GetUserByUsernameAsync(string username)
         {
-            return await _context.Users.Where(x => x.UserName == username).ProjectTo<UserDto>(_mapper.ConfigurationProvider).SingleOrDefaultAsync();
+            return await _context.Users.Include(p => p.Photo).Where(x => x.UserName == username).SingleOrDefaultAsync();
         }
 
         public async Task<bool> SaveAllAsync()
