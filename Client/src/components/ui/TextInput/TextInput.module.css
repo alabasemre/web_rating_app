@@ -10,7 +10,9 @@
     margin-top: 0.5rem;
 }
 
-.input-group input[type='text'] {
+.input-group input[type='text'],
+.input-group input[type='email'],
+.input-group input[type='password'] {
     background-color: var(--secondary-color);
     border: none;
     height: 45px;

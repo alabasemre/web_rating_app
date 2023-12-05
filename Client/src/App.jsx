@@ -1,18 +1,32 @@
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
 import HomeLayout from './layouts/HomeLayout';
+import UserLayout from './layouts/UserLayout';
+import AuthLayout from './layouts/AuthLayout';
 import SignupPage from './pages/AuthPages/SignupPage';
 import SigninPage from './pages/AuthPages/SigninPage';
+import ProfilePage from './pages/Profile/ProfilePage';
+import RatedPage from './pages/Rated/RatedPage';
+import NotFoundPage from './pages/NotFound/NotFoundPage';
+import HomePage from './pages/Home/HomePage';
 
 function App() {
     return (
         <>
             <Routes>
                 <Route element={<HomeLayout />}>
-                    <Route index element={<p>Home</p>} />
-                    <Route path='/signup' element={<SignupPage />} />
-                    <Route path='/signin' element={<SigninPage />} />
+                    <Route index element={<HomePage />} />
+                    <Route element={<AuthLayout />}>
+                        <Route path='/signup' element={<SignupPage />} />
+                        <Route path='/signin' element={<SigninPage />} />
+                    </Route>
+                    <Route element={<UserLayout />}>
+                        <Route path='/profile' element={<ProfilePage />} />
+                        <Route path='/rated' element={<RatedPage />} />
+                    </Route>
                 </Route>
+
+                <Route path='*' element={<NotFoundPage />} />
             </Routes>
         </>
     );

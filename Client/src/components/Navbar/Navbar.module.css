@@ -6,6 +6,9 @@
 
 nav {
     border-bottom: 1px solid var(--primary-color);
+    position: relative;
+    z-index: 2;
+    background-color: var(--white);
 }
 
 .nav-container {
@@ -17,6 +20,11 @@ nav {
 }
 
 .auth-container {
+    display: flex;
+    gap: 1rem;
+}
+
+.nav-menus {
     display: flex;
     gap: 1rem;
 }

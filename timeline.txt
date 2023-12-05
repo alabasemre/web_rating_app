@@ -1,2 +1,3 @@
 1) Frontend için react kurulumu yapıldı. React router iskeleti hazırlandı ve giriş,kayıt ol sayfaları tasarlandı.
 Backend için .net core web api ile projeyi başlattım.
+2) Entityler ve Dtolar oluşturuldu. Veritabanı bağlantısı kuruldu, kullanıcılar artık kayıt ve giriş yapabiliyor.

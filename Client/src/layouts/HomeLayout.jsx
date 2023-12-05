@@ -5,7 +5,7 @@ function HomeLayout() {
     return (
         <>
             <Navbar />
-            <main style={{ 'max-width': '1200px', margin: '0 auto' }}>
+            <main style={{ maxWidth: '1200px', margin: '0 auto' }}>
                 <Outlet />
             </main>
         </>
