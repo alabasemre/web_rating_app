@@ -17,6 +17,15 @@ function Navbar() {
                             Notladım
                         </NavLink>
                     )}
+                    {authContext.isLoggedIn &&
+                        authContext.user.role === 'Admin' && (
+                            <NavLink
+                                to='/admin/products'
+                                className={styles['nav-link']}
+                            >
+                                Ürün Paneli
+                            </NavLink>
+                        )}
                 </div>
 
                 {authContext.isLoggedIn ? (
@@ -25,7 +34,7 @@ function Navbar() {
                             Profil
                         </NavLink>
                         <NavLink
-                            to='/'
+                            to='/signin'
                             className={styles['nav-link']}
                             onClick={async () => {
                                 await authContext.logout();

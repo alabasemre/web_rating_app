@@ -1,43 +1,30 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useContext, useState, useEffect } from 'react';
+import { useContext, useState } from 'react';
 import AuthContext from '../../store/auth-context';
 
 import defaultImage from '../../assets/user.png';
 import styles from './Profile.module.css';
-import { useNavigate } from 'react-router-dom';
+
+import { changeProfilePicture } from '../../services/UserService';
 
 function ProfilePage() {
     const { user, changePhoto } = useContext(AuthContext);
     const [profilePic, setProfilePic] = useState(null);
     const [requestSending, setRequestSending] = useState(false);
-    const navigate = useNavigate();
 
-    useEffect(() => {}, []);
-
-    const changeProfilePic = async () => {
+    const changeImageHandler = async () => {
         if (profilePic == null) {
             return;
         }
-        console.log(user);
 
         try {
             setRequestSending(true);
             const formData = new FormData();
             formData.append('File', profilePic);
-            const resp = await fetch(
-                'http://localhost:5174/api/user/add-photo',
-                {
-                    method: 'POST',
-                    headers: {
-                        Authorization: 'Bearer ' + user.token,
-                    },
-                    body: formData,
-                }
-            );
+            const resp = await changeProfilePicture(formData, user.token);
 
-            if (resp.ok) {
-                const newPhoto = await resp.json();
-                changePhoto(newPhoto);
+            if (!resp?.error) {
+                changePhoto(resp.photo);
             }
         } catch (error) {
             console.log(error);
@@ -56,16 +43,6 @@ function ProfilePage() {
                 <section>
                     <div className={styles['welcome-container']}>
                         <p>Hoşgeldin {user.userName}</p>
-                        {user.role === 'Admin' && (
-                            <button
-                                className={styles.button}
-                                onClick={() => {
-                                    navigate('/admin');
-                                }}
-                            >
-                                Admin Paneli
-                            </button>
-                        )}
                     </div>
                     <div className={styles['user-info-container']}>
                         <div className={styles['user-info-left']}>
@@ -85,7 +62,7 @@ function ProfilePage() {
                                         <button
                                             disabled={requestSending}
                                             className={styles.button}
-                                            onClick={changeProfilePic}
+                                            onClick={changeImageHandler}
                                         >
                                             Onayla
                                         </button>

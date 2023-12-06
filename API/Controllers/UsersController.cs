@@ -13,14 +13,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
-    public class UserController:BaseApiController
+    public class UsersController:BaseApiController
     {
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
         private readonly IPhotoService _photoService;
         private readonly DataContext _context;
 
-        public UserController(IUserRepository userRepository, IMapper mapper, IPhotoService photoService, DataContext context)
+        public UsersController(IUserRepository userRepository, IMapper mapper, IPhotoService photoService, DataContext context)
         {
             _userRepository = userRepository;
             _mapper = mapper;

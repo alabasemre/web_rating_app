@@ -65,6 +65,7 @@
     display: flex;
     padding: 0rem 2rem;
     gap: 2rem;
+    flex-wrap: wrap;
 }
 
 .user-info-left {

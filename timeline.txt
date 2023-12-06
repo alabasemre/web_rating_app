@@ -2,3 +2,4 @@
 Backend için .net core web api ile projeyi başlattım.
 2) Entityler ve Dtolar oluşturuldu. Veritabanı bağlantısı kuruldu, kullanıcılar artık kayıt ve giriş yapabiliyor.
 3) Profil sayfası oluşturuldu. Kullanıcı profil resmi ekleyip güncelleyebiliyor.
+4) Kullanıcı yetkilendirmeleri yapıldı. Admin olan kullanıcılar ürün ekleme işlemlerini gerçekleştirebiliyor. Eklenen ürünler admin panelinde ve anasayfada görüntülenebiliyor.

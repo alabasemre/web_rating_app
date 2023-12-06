@@ -1,12 +1,13 @@
-import styles from './HomePage.module.css';
-import bannerImage from '../../assets/phones.jpeg';
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
-
+import AdminAddProduct from './AdminAddProduct';
+import AdminListProducts from './AdminListProducts';
 import { getProducts } from '../../services/ProductService';
-import ProductInfoCard from '../../components/ProductInfoCard/ProductInfoCard';
 
-function HomePage() {
+function AdminProductPanel() {
     const [products, setProducts] = useState([]);
+    const [pagination, setPagination] = useState(null);
+    const [newAdded, setNewAdded] = useState(0);
 
     useEffect(() => {
         getProductsHandler(1, 6);
@@ -21,6 +22,8 @@ function HomePage() {
             });
 
             setProducts(calculatedProducts);
+            setPagination(response.pagination);
+            setNewAdded(0);
         }
     };
 
@@ -36,6 +39,12 @@ function HomePage() {
         };
     };
 
+    const addToProductList = (product) => {
+        alert('Ürün Başarıyla Eklendi');
+        setProducts((state) => [...state, calculateProduct(product)]);
+        setNewAdded((state) => state + 1);
+    };
+
     const getCommentCount = (comments) => {
         return comments?.filter((comment) => comment.text !== null).length;
     };
@@ -47,27 +56,23 @@ function HomePage() {
         );
     };
 
-    return (
-        <div>
-            <div className={styles['banner-container']}>
-                <div className={styles['banner-left']}>
-                    <h1>Binlerce ürünün değerlendirmelerine ulaş.</h1>
-                    <p>Binlerce ürünü değerlendir.</p>
-                </div>
-                <div className={styles['banner-right']}>
-                    <img
-                        src={bannerImage}
-                        alt=''
-                        className={styles['banner-image']}
-                    />
-                </div>
-            </div>
+    const changePage = async (pageNumber) => {
+        await getProductsHandler(pageNumber, 6);
+    };
 
-            <section>
-                {products.length > 0 && <ProductInfoCard products={products} />}
-            </section>
-        </div>
+    return (
+        <>
+            <AdminAddProduct addToProductList={addToProductList} />
+            {products.length > 0 && (
+                <AdminListProducts
+                    products={products}
+                    pagination={pagination}
+                    changePage={changePage}
+                    newAdded={newAdded}
+                />
+            )}
+        </>
     );
 }
 
-export default HomePage;
+export default AdminProductPanel;

@@ -17,7 +17,8 @@ namespace API.Extensions
             services.AddCors();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IUserRepository, UserRepository>();
-            
+            services.AddScoped<IProductRepository, ProductRepository>();
+
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.Configure<CloudinarySettings>(config.GetSection("CloudinarySettings"));

@@ -9,6 +9,8 @@ import ProfilePage from './pages/Profile/ProfilePage';
 import RatedPage from './pages/Rated/RatedPage';
 import NotFoundPage from './pages/NotFound/NotFoundPage';
 import HomePage from './pages/Home/HomePage';
+import AdminLayout from './pages/Admin/AdminLayout';
+import AdminProductPanel from './pages/Admin/AdminProductPanel';
 
 function App() {
     return (
@@ -23,6 +25,12 @@ function App() {
                     <Route element={<UserLayout />}>
                         <Route path='/profile' element={<ProfilePage />} />
                         <Route path='/rated' element={<RatedPage />} />
+                        <Route path='admin' element={<AdminLayout />}>
+                            <Route
+                                path='products'
+                                element={<AdminProductPanel />}
+                            />
+                        </Route>
                     </Route>
                 </Route>
 
