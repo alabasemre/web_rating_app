@@ -19,4 +19,22 @@ async function changeProfilePicture(formData, token) {
     }
 }
 
-export { changeProfilePicture };
+async function getUserStats(token) {
+    try {
+        const resp = await fetch(`${BASE_URL}/users/stats`, {
+            method: 'GET',
+            headers: {
+                Authorization: 'Bearer ' + token,
+            },
+        });
+
+        if (resp.ok) {
+            const stats = await resp.json();
+            return { data: stats, error: false };
+        }
+    } catch (error) {
+        return JSON.parse(error);
+    }
+}
+
+export { changeProfilePicture, getUserStats };

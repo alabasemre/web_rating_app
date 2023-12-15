@@ -13,7 +13,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
-    public class UsersController:BaseApiController
+    public class UsersController : BaseApiController
     {
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
@@ -32,7 +32,6 @@ namespace API.Controllers
         [HttpPost("add-photo")]
         public async Task<ActionResult<PhotoDto>> AddPhoto(IFormFile file)
         {
-            var userN = User.GetUsername();
             var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
 
             if (user == null)
@@ -58,12 +57,6 @@ namespace API.Controllers
                 PublicId = result.PublicId
             };
 
-            //var photo = new Photo
-            //{
-            //    Url = "2121",
-            //    PublicId = "2121"
-            //};
-
             if (user.Photo != null)
             {
                 var oldPhoto = await _context.Photos.SingleOrDefaultAsync(x => x.Id == user.Photo.Id);
@@ -86,7 +79,25 @@ namespace API.Controllers
             return BadRequest("Problem Adding Photo");
         }
 
-       
+        [Authorize]
+        [HttpGet("stats")]
+        public async Task<ActionResult<UserStatsDto>> GetUserStats(int userId)
+        {
+            var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+
+            if (user == null)
+            {
+                return NotFound("User not found");
+            }
+
+            var commentCount = await _context.Comments.Where(x => x.Text != "" && x.Text != null && x.AppUserId == user.Id).CountAsync();
+            var ratedCount = await _context.Comments.Where(x => x.AppUserId == user.Id).CountAsync();
+
+            return new UserStatsDto { CommentCount = commentCount, RatedCount = ratedCount };
+        }
+
+
+
         public async Task<ActionResult<AppUser>> GetUser(string username)
         {
             return await _userRepository.GetUserByUsernameAsync(username);

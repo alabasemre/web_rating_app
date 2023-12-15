@@ -12,6 +12,9 @@ function Navbar() {
                     <NavLink to='/' className={styles['nav-link']}>
                         Anasayfa
                     </NavLink>
+                    <NavLink to='/products' className={styles['nav-link']}>
+                        Ürünler
+                    </NavLink>
                     {authContext.isLoggedIn && (
                         <NavLink to='/rated' className={styles['nav-link']}>
                             Notladım

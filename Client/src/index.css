@@ -40,3 +40,17 @@ img {
 nav a.active {
     color: var(--primary-color);
 }
+
+button:disabled,
+input:disabled {
+    background-color: var(--secondary-color);
+    border: none;
+}
+
+button:disabled:hover,
+input:disabled:hover {
+    background-color: var(--secondary-color);
+    border: none;
+    color: var(--white);
+    cursor: default;
+}

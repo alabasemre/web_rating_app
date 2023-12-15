@@ -9,6 +9,7 @@ namespace API.Interfaces
 
         Task<bool> GetProductWithNameAsync(string productName);
         Task<PagedList<ProductDto>> GetProductsAsync(ProductParams productParams);
+        Task<PagedList<UserRatedDto>> GetUserRatedProductsAsync(ProductParams productParams, int userId);
 
         Task<bool> SaveAllAsync();
     }

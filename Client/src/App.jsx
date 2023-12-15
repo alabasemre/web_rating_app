@@ -11,6 +11,8 @@ import NotFoundPage from './pages/NotFound/NotFoundPage';
 import HomePage from './pages/Home/HomePage';
 import AdminLayout from './pages/Admin/AdminLayout';
 import AdminProductPanel from './pages/Admin/AdminProductPanel';
+import ProductsPage from './pages/Products/ProductsPage';
+import ProductDetailPage from './pages/Products/ProductDetailPage';
 
 function App() {
     return (
@@ -18,6 +20,11 @@ function App() {
             <Routes>
                 <Route element={<HomeLayout />}>
                     <Route index element={<HomePage />} />
+                    <Route path='products' element={<ProductsPage />}></Route>
+                    <Route
+                        path='/products/:productId'
+                        element={<ProductDetailPage />}
+                    />
                     <Route element={<AuthLayout />}>
                         <Route path='/signup' element={<SignupPage />} />
                         <Route path='/signin' element={<SigninPage />} />

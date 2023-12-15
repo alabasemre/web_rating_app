@@ -1,11 +1,20 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react-hooks/exhaustive-deps */
+import { useState } from 'react';
 import styles from './Admin.module.css';
 import { MdModeEdit, MdDelete } from 'react-icons/md';
 
-function AdminListProducts({ products, pagination, changePage, newAdded }) {
+function AdminListProducts({
+    products,
+    pagination,
+    changePage,
+    newAdded,
+    deleteProduct,
+    setSelectedProduct,
+}) {
     const page = pagination.currentPage;
     const totalPages = pagination.totalPages;
+    const [isLoading, setIsLoading] = useState(false);
     const changePageHandler = (pageNumber) => {
         changePage(pageNumber);
     };
@@ -46,10 +55,24 @@ function AdminListProducts({ products, pagination, changePage, newAdded }) {
                             </p>
                         </div>
                         <div className={styles['action-buttons']}>
-                            <button className={styles['btn-action']}>
+                            <button
+                                className={styles['btn-action']}
+                                disabled={isLoading}
+                                onClick={() => {
+                                    setSelectedProduct(product);
+                                }}
+                            >
                                 <MdModeEdit />
                             </button>
-                            <button className={styles['btn-action']}>
+                            <button
+                                className={styles['btn-action']}
+                                disabled={isLoading}
+                                onClick={async () => {
+                                    setIsLoading(true);
+                                    await deleteProduct(product.id);
+                                    setIsLoading(false);
+                                }}
+                            >
                                 <MdDelete />
                             </button>
                         </div>

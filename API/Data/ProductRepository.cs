@@ -36,6 +36,13 @@ namespace API.Data
             return await _context.Products.AnyAsync(x => x.Name == productName);
         }
 
+        public async Task<PagedList<UserRatedDto>> GetUserRatedProductsAsync(ProductParams productParams,int userId)
+       {
+            var query = _context.Comments.Include(c => c.Product).Where(c => c.AppUserId == userId).ProjectTo<UserRatedDto>(_mapper.ConfigurationProvider).AsNoTracking();
+
+            return await PagedList<UserRatedDto>.CreateAsync(query, productParams.PageNumber, productParams.PageSize);
+        }
+
         public async Task<bool> SaveAllAsync()
         {
             return await _context.SaveChangesAsync() > 0;

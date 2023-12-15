@@ -1,16 +1,28 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import AuthContext from '../../store/auth-context';
 
 import defaultImage from '../../assets/user.png';
 import styles from './Profile.module.css';
 
-import { changeProfilePicture } from '../../services/UserService';
+import { changeProfilePicture, getUserStats } from '../../services/UserService';
 
 function ProfilePage() {
     const { user, changePhoto } = useContext(AuthContext);
     const [profilePic, setProfilePic] = useState(null);
     const [requestSending, setRequestSending] = useState(false);
+    const [userStats, setUserStats] = useState(null);
+
+    useEffect(() => {
+        getUserStatsHandler();
+    }, []);
+
+    const getUserStatsHandler = async () => {
+        const stats = await getUserStats(user.token);
+        if (!stats.error) {
+            setUserStats(stats.data);
+        }
+    };
 
     const changeImageHandler = async () => {
         if (profilePic == null) {
@@ -103,7 +115,8 @@ function ProfilePage() {
                                     Notlanan Ürün Sayısı
                                 </p>
                                 <p className={styles['info-text']}>
-                                    <span>18</span> Ürünü Notladınız.
+                                    <span>{userStats?.ratedCount}</span> Ürünü
+                                    Notladınız.
                                 </p>
                             </div>
                             <div className={styles['info-container']}>
@@ -111,7 +124,8 @@ function ProfilePage() {
                                     Yorumlanan Ürün Sayısı
                                 </p>
                                 <p className={styles['info-text']}>
-                                    <span>10</span> Ürünü Yorumladınız.
+                                    <span>{userStats?.commentCount}</span> Ürünü
+                                    Yorumladınız.
                                 </p>
                             </div>
                         </div>
