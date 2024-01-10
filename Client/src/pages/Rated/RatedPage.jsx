@@ -63,55 +63,60 @@ function RatedPage() {
     };
 
     const changePage = async (pageNumber) => {
-        console.log(pageNumber);
         await getUserRatedProductHandler(pageNumber);
     };
 
     return (
         <section>
             {rated.length > 0 &&
-                rated.map((rated) => (
-                    <div
-                        className={styles['rated-card-container']}
-                        key={rated.id}
-                        onClick={() => {
-                            navigate(`/products/${rated.id}`);
-                        }}
-                    >
-                        <div className={styles['rated-card-left']}>
-                            <div className={styles['rated-card-img']}>
-                                <img src={rated.photo} alt='' />
+                rated.map((rated) => {
+                    console.log(rated);
+                    return (
+                        <div
+                            className={styles['rated-card-container']}
+                            key={rated.id}
+                            onClick={() => {
+                                navigate(`/products/${rated.id}`);
+                            }}
+                        >
+                            <p className={styles['rated-score']}>
+                                {rated.score}
+                            </p>
+                            <div className={styles['rated-card-left']}>
+                                <div className={styles['rated-card-img']}>
+                                    <img src={rated.photo} alt='' />
+                                </div>
+                                <div className={styles['rated-card-info']}>
+                                    <h3 className={styles['rated-card-title']}>
+                                        {rated.name}
+                                    </h3>
+                                    <p className={styles['rated-card-text']}>
+                                        <span>{rated.ratedCount} </span>
+                                        Defa Notlandı
+                                    </p>
+                                    <p className={styles['rated-card-text']}>
+                                        <span>{rated.commentCount} </span>
+                                        Defa Yorumlandı
+                                    </p>
+                                    <p className={styles['rated-card-text']}>
+                                        <span>{rated.avgScore} </span>
+                                        Not Ortalamasına Sahip
+                                    </p>
+                                </div>
                             </div>
-                            <div className={styles['rated-card-info']}>
-                                <h3 className={styles['rated-card-title']}>
-                                    {rated.name}
-                                </h3>
-                                <p className={styles['rated-card-text']}>
-                                    <span>{rated.ratedCount} </span>
-                                    Defa Notlandı
+                            <div className={styles['rated-card-right']}>
+                                <p className={styles['rated-card-bold-text']}>
+                                    Yorumunuz:
                                 </p>
-                                <p className={styles['rated-card-text']}>
-                                    <span>{rated.commentCount} </span>
-                                    Defa Yorumlandı
-                                </p>
-                                <p className={styles['rated-card-text']}>
-                                    <span>{rated.avgScore} </span>
-                                    Not Ortalamasına Sahip
+                                <p className={styles['rated-card-comment']}>
+                                    {rated.text
+                                        ? rated.text
+                                        : 'Bu ürün için bir yorumunuz bulunmuyor...'}
                                 </p>
                             </div>
                         </div>
-                        <div className={styles['rated-card-right']}>
-                            <p className={styles['rated-card-bold-text']}>
-                                Yorumunuz:
-                            </p>
-                            <p className={styles['rated-card-comment']}>
-                                {rated.text
-                                    ? rated.text
-                                    : 'Bu ürün için bir yorumunuz bulunmuyor...'}
-                            </p>
-                        </div>
-                    </div>
-                ))}
+                    );
+                })}
             {pagination && (
                 <Pagination pagination={pagination} changePage={changePage} />
             )}

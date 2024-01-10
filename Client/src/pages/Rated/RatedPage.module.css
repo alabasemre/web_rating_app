@@ -22,6 +22,10 @@
     border: 2px solid var(--primary-color);
 }
 
+.rated-card-container:hover .rated-score {
+    color: var(--primary-color);
+}
+
 .rated-card-right {
     flex: 4;
 }
@@ -78,6 +82,15 @@
     max-height: 100px;
     overflow-y: auto;
     scrollbar-gutter: stable;
+}
+
+.rated-score {
+    position: absolute;
+    right: 10px;
+    top: 0;
+    font-size: 2.4rem;
+    font-weight: 900;
+    color: var(--white);
 }
 
 /* width */

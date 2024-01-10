@@ -28,7 +28,6 @@ app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().WithOrigins("ht
 
 app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
 
 using var scope = app.Services.CreateScope();
